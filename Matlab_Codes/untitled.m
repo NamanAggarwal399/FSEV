@@ -1,0 +1,25 @@
+
+l=1.561; %wheel base 
+a=0.887; %distance between front axle and COM in longitudinal direction 
+tf=1.21; %Front Track Width 
+tr=1.177; %Rear Track Width 
+h=0.223; %height of total COM of car 
+zrf=0.05; %Height of Front Roll Center  
+zrr=0.06; %Height of Rear Roll Center 
+zwf=0.254; %Height of Front Unsprung Mass 
+zwr=0.254; %Height of Rear Unsprung Mass 
+W=282.6; %weight of the whole car 
+Wuf=25.366; %weight of front unsprung mass 
+Wur=26.27662; %weight of rear unsprung mass 
+Ws=282.6-Wuf-Wur; %weight of sprung mass
+Kf= 9779.4; %N.m/rad; %Front roll stiffness
+Kr =21800;%N.m/rad; %Rear Roll Stiffness
+Ay=1.5
+b=l-a
+bs=(W*b-Wuf*l)/Ws
+as = l - bs
+h2= -(as*(zrr-zrf)-h*l+zrf*l)/sqrt(l*l+(zrr-zrf)*(zrr-zrf))
+Kf1 = Kf - as*Ws*h2/l
+Kr1 = Kr - as*Ws*h2/l
+delWf = Ay*(Ws/tf)*((h2*Kf1)/(Kf+Kr-Ws*h2)+(l-as)*(zrf)/l)+(Wur*zwf)/tf;
+delWr = Ay*(Ws/tr)*((h2*Kr1)/(Kf+Kr-Ws*h2)+(l-as)*(zrr)/l)+(Wur*zwr)/tr;
